@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7df6a59f-fd58-4c52-89d5-cb84149defb5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigoUsuario" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+     usuario."nome" AS usuario_nome,
+     conta_bancaria."conta" AS conta_bancaria_conta,
+     conta_bancaria."data_cadastro" AS conta_bancaria_data_cadastro,
+     conta_bancaria."descricao" AS conta_bancaria_descricao,
+     conta_bancaria."saldo_inicial" AS conta_bancaria_saldo_inicial
+FROM
+     "public"."usuario" usuario INNER JOIN "public"."conta_bancaria" conta_bancaria ON usuario."codigo" = conta_bancaria."cod_usuario"
+where
+usuario."codigo" = $P{codigoUsuario}]]>
+	</queryString>
+	<field name="usuario_nome" class="java.lang.String"/>
+	<field name="conta_bancaria_conta" class="java.lang.Integer"/>
+	<field name="conta_bancaria_data_cadastro" class="java.sql.Timestamp"/>
+	<field name="conta_bancaria_descricao" class="java.lang.String"/>
+	<field name="conta_bancaria_saldo_inicial" class="java.lang.Float"/>
+	<group name="usuario_nome">
+		<groupExpression><![CDATA[$F{usuario_nome}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement uuid="1a43a237-451b-44ac-b647-97b8909d3979" mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Nome:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="7cdf3465-5038-4d31-ba84-961b7bfc44f3" mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_nome}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="0de57cfb-6105-4a02-a683-8401f21d47f8" x="-20" y="32" width="595" height="1" forecolor="#666666"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement uuid="5dd5c25a-b19a-486c-9e3e-7b3b47a93cc9" mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699"/>
+				<staticText>
+					<reportElement uuid="3c945151-b6ea-4bb1-b30a-011de31fcbea" x="20" y="20" width="234" height="43" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Contas]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="706f2a95-168d-49e9-bb0b-64b2c1c3fb93" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="6da1d5f3-a558-47e1-8438-497b47855797" mode="Opaque" x="0" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e6b54cc-7fd4-48b2-a4ee-ce13f29f2cee" mode="Opaque" x="138" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9e6ba1fd-2b1c-41c6-bf9d-bf954a391cbc" mode="Opaque" x="276" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9299b736-f0ff-497b-9a46-108cb3c9f54b" mode="Opaque" x="414" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo Inicial]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27">
+			<line>
+				<reportElement uuid="f5d30878-e200-4eaf-9314-ee2cfb6c7aed" positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d9ec4b44-cc50-4dfc-8e89-ad11ce620c45" x="0" y="0" width="138" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conta_bancaria_conta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="2b6c3ef2-970b-4408-8b0a-16e13ed9710a" x="138" y="0" width="138" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conta_bancaria_data_cadastro}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4e3259a2-d604-4c4d-af01-be4469362fa2" x="276" y="0" width="138" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conta_bancaria_descricao}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement uuid="a60619c5-70b6-4414-9808-db8772bd70c4" x="414" y="0" width="138" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conta_bancaria_saldo_inicial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement uuid="5e24c683-ebd9-4732-ac46-5190b65bea44" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="e5c7dbb1-e074-48e4-a390-492e1ecdd0ac" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="51886286-5079-40bc-9185-fd32a0d5435b" x="0" y="4" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+    
+<hibernate-configuration>
+
+    <session-factory>
+    
+		<property name="connection.datasource">java:/comp/env/jdbc/FinanceiroDB</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property> 
+        <property name="current_session_context_class">thread</property>
+        
+        <!-- forma como serao interpretadas as alteracoes entre entidades e banco -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- para exibir e formatar sql na console -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		
+        <mapping class="br.unisinos.financeiro.model.usuario.Usuario"/>
+        <mapping class="br.unisinos.financeiro.model.conta.Conta"/>
+        <mapping class="br.unisinos.financeiro.model.categoria.Categoria"/>
+        <mapping class="br.unisinos.financeiro.model.lancamento.Lancamento"/>
+        <mapping class="br.unisinos.financeiro.model.acao.Acao" />
+        <!--        
+        <mapping class="br.unisinos.financeiro.model.cheque.Cheque"/>
+         -->
+         
+    </session-factory>
+    
+</hibernate-configuration>

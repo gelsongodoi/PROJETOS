@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<h:panelGrid style="margin: 0 auto;">
+		<h:form id="listagem">
+			<h:dataTable value="#{acaoBean.lista}" var="acao" cellspacing="3"
+				rendered="#{!empty acaoBean.lista}">
+				<h:column>
+					<f:facet name="header"> Sigla </f:facet>
+					<h:outputText value="#{acao.sigla}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"> Sigla Link </f:facet>
+						<h:commandLink title="Gráficos a Ação">
+							<f:ajax execute="@this" render=":graficosAcao"/>
+							<h:outputText value="#{acao.sigla}" />
+							<f:setPropertyActionListener target="#{acaoBean.selecionada}" 
+							value="#{acao}" />
+						</h:commandLink>	
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"> Descrição </f:facet>
+					<h:outputText value="#{acao.descricao}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"> Origem </f:facet>
+					<h:outputText value="#{acao.origem}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"> Quantidade </f:facet>
+					<h:outputText value="#{acao.quantidade}" />
+				</h:column>
+				<h:column>
+					<h:commandLink title="editar">
+						<f:ajax execute="@this" render=":edicao"/>
+						<h:graphicImage library="imagens" name="editar16.png"/>
+						<f:setPropertyActionListener target="#{acaoBean.selecionada}" 
+						value="#{acao}" />
+					</h:commandLink>					
+				</h:column>
+				<h:column>
+					<h:commandLink title="excluir" action="#{acaoBean.excluir}">
+						<f:ajax execute="@this" render=":listagem :graficosCarteira"/>
+						<h:graphicImage library="imagens" name="excluir16.png"/>
+						<f:setPropertyActionListener target="#{acaoBean.selecionada}" 
+						value="#{acao}" />
+					</h:commandLink>					
+				</h:column>
+				
+			</h:dataTable>
+		</h:form>
+	</h:panelGrid>
+</ui:composition>
+</html>
