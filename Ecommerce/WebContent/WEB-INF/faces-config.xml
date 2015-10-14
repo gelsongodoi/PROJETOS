@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+	<!-- Configura o validador de número de cartão -->
+	<validator>
+		<validator-id>validaCartao</validator-id>
+		<validator-class>br.com.integrator.util.ValidaCartao</validator-class>
+	</validator>
+
+	<!-- Gerencia o Admin  -->
+	<managed-bean>
+		<managed-bean-name>adminController</managed-bean-name>
+		<managed-bean-class>br.com.integrator.controller.AdminController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+
+	<!-- Gerencia o Contato  -->
+	<managed-bean>
+		<managed-bean-name>contatoController</managed-bean-name>
+		<managed-bean-class>br.com.integrator.controller.ContatoController</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<!-- Gerencia o Usuário -->
+	<managed-bean>
+		<managed-bean-name>usuarioController</managed-bean-name>
+		<managed-bean-class>br.com.integrator.controller.UsuarioController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<!-- Gerencia a loja -->
+	<managed-bean>
+		<managed-bean-name>lojaController</managed-bean-name>
+		<managed-bean-class>br.com.integrator.controller.LojaController</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<!-- Gerencia o carrinho -->
+	<managed-bean>
+		<managed-bean-name>carrinhoController</managed-bean-name>
+		<managed-bean-class>br.com.integrator.controller.CarrinhoController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<!-- Gerencia os produtos do admin -->
+	<managed-bean>
+		<managed-bean-name>produtoController</managed-bean-name>
+		<managed-bean-class>br.com.integrator.controller.ProdutoController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<!-- Gerencia as categorias do admin -->
+	<managed-bean>
+		<managed-bean-name>categoriaController</managed-bean-name>
+		<managed-bean-class>br.com.integrator.controller.CategoriaController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<!-- Navegação de qualquer lugar da administração -->
+	<navigation-rule>
+		<from-view-id>/admin/*</from-view-id>
+		<navigation-case>
+			<from-outcome>formProduto</from-outcome>
+			<to-view-id>/admin/formProduto.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>mostrarProdutos</from-outcome>
+			<to-view-id>/admin/mostrarProdutos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancelar</from-outcome>
+			<to-view-id>/admin/home.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>formCategoria</from-outcome>
+			<to-view-id>/admin/formCategoria.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>mostrarCategorias</from-outcome>
+			<to-view-id>/admin/mostrarCategorias.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>mostrarCompras</from-outcome>
+			<to-view-id>/admin/mostrarCompras.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Navegação administrativa do cadastro de categoria -->
+	<navigation-rule>
+		<from-view-id>/admin/formCategoria.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/admin/mostrarCategorias.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Navegação administrativa do cadastro de produto -->
+	<navigation-rule>
+		<from-view-id>/admin/formProduto.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/admin/mostrarProdutos.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Navegação administrativa da entrada do usuário -->
+	<navigation-rule>
+		<from-view-id>/admin/admin.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>autorizado</from-outcome>
+			<to-view-id>/admin/home.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!--
+		Navegação de qualquer lugar do site navega para a página de pesquisa
+	-->
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>pesquisado</from-outcome>
+			<to-view-id>/pesquisado.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!--  Navegação para o adicionar ao carrinho de compras -->
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-action>#{carrinhoController.adicionarAoCarrinho}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/carrinho.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!--  Navegação para a área do usuário -->
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>logado</from-outcome>
+			<to-view-id>/logado.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logar</from-outcome>
+			<to-view-id>/logar.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/logado.xhtml</from-view-id>
+		<!-- Exibe o formulário com os dados do usuário logado -->
+		<navigation-case>
+			<from-outcome>atualiza</from-outcome>
+			<to-view-id>/form.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Vai ao formulário para um novo cadastro -->
+	<navigation-rule>
+		<from-view-id>/logar.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>novo</from-outcome>
+			<to-view-id>/form.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- resposta do formulário de contato -->
+	<navigation-rule>
+		<from-view-id>/contato.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>enviado</from-outcome>
+			<to-view-id>/enviado.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<application>
+		<!-- Configura o Apache MyFaces Trinidad para utilizar o UploadFile -->
+		<default-render-kit-id>org.apache.myfaces.trinidad.core</default-render-kit-id>
+		<!-- Configura o Spring 2.5 para trabalhar com JSF 1.2 -->
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<!--Configura as mensagens globais traduzidas -->
+		<message-bundle>br.com.integrator.bundle.Bundle</message-bundle>
+
+	</application>
+
+	<lifecycle>
+		<phase-listener>br.com.integrator.util.ForcarLoginPhaseListener</phase-listener>
+	</lifecycle>
+
+	<!--
+		<application> <view-handler> com.sun.facelets.FaceletViewHandler
+		</view-handler> <locale-config/> </application>
+	-->
+	<factory />
+</faces-config>
